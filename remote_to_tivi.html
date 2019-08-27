@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    const DEFAULT_CHANEL = 0;
+    const DEFAULT_VOLUME = 20;
+    const REMOTE_CHANEL = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+    let Ti_vi = function () {
+        this.chanel = DEFAULT_CHANEL;
+        this.volume = DEFAULT_VOLUME;
+        this.status = true;
+        this.remote = null;
+
+        this.getCurrentChanel = function () {
+            return this.chanel;
+        };
+        this.currentVolume = function () {
+            return this.volume;
+        };
+
+        this.setChanel = function (chanel) {
+            this.chanel = chanel;
+        };
+        this.increaseVolume = function () {
+            this.volume++;
+        };
+        this.decreaseVolume = function () {
+            this.volume--;
+        };
+        this.connectToRemote = function (remote) {
+            this.remote = remote;
+        }
+    };
+
+    let Remote = function () {
+        this.chanel = REMOTE_CHANEL;
+
+        this.changeChanel = function (chanel) {
+            for (let i = 0; i < this.chanel.length; i++) {
+                if (chanel === this.chanel[i]) {
+                    tivi.setChanel(this.chanel[i]);
+                }
+            }
+        };
+
+        this.increaseVolume = function () {
+            tivi.increaseVolume();
+        };
+        this.decreaseVolume = function () {
+            tivi.decreaseVolume();
+        };
+
+
+    };
+
+    let ti_vi = new Ti_vi(DEFAULT_CHANEL, DEFAULT_VOLUME, true);
+    let remote = new Remote();
+
+    ti_vi.connectToRemote(remote);
+    console.log(ti_vi.remote);
+    console.log("Current Chanel: " + ti_vi.getCurrentChanel());
+    console.log('Current Volume: ' + ti_vi.currentVolume());
+
+    ti_vi.remote.changeChanel(7);
+    ti_vi.remote.decreaseVolume();
+
+    console.log("Current chanel after remote Chanel: " + ti_vi.getCurrentChanel());
+    console.log("Current Volume after remote change: " + ti_vi.currentVolume());
+</script>
+</body>
+</html>
